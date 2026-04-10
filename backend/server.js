@@ -4,7 +4,6 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 dotenv.config("env");
-import User from "./models/user.js";
 import userRouter from "./routes/user.js";
 
 const PORT = process.env.PORT;
