@@ -1,16 +1,27 @@
 import express from "express";
 import mongoose from "mongoose";
+import cors from "cors";
+import dotenv from "dotenv";
 
-const PORT = 9999;
-const DB_URL = "mongodb://127.0.0.1:27017/beginner";
+dotenv.config("./.env");
+
+const PORT = process.env.PORT;
+console.log(PORT)
+const DB_URL = process.env.DB_URL;
 const app = express();
 
-mongoose.connect(DB_URL)
-    .then(() => console("MongoDB connected"))
+app.use(cors());
+app.use(express.json());
+
+const db = mongoose.connect(DB_URL)
+    .then(() => console.log("MongoDB connected"))
     .catch((e) => console.log("MongoDB Error encountered"));
 
-app.get("/", (req, res) => {
+
+app.get("/", async (req, res) => {
     res.send("this is root");
 })
 
-app.listen(PORT, () => console.log(`Server started on PORT: ${PORT}`));
+app.listen(PORT, () => {
+    console.log("Server starte on ", PORT)
+});
