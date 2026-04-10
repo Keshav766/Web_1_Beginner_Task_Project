@@ -3,8 +3,9 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 
-dotenv.config("./.env");
+dotenv.config("env");
 import User from "./models/user.js";
+import userRouter from "./routes/user.js";
 
 const PORT = process.env.PORT;
 console.log(PORT)
@@ -19,15 +20,8 @@ const db = mongoose.connect(DB_URL)
     .then(() => console.log("MongoDB connected"))
     .catch((e) => console.log("MongoDB Error encountered"));
 
-app.post("/", async (req, res) => {
-    const { name, email, password } = req.body;
-    const createdUser = await User.create({ name, email, password });
-    res.json({
-        status: "success",
-        data: createdUser,
-    })
-})
+app.use("/user", userRouter);
 
 app.listen(PORT, () => {
-    console.log("Server starte on ", PORT)
+    console.log("Server started on PORT:", PORT)
 });
