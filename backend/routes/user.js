@@ -6,7 +6,7 @@ import {
     handleUserUpdate,
     handleUserDelete
 } from "../controllers/user.js"
-import { UserAuthentication } from "../middlewares/auth.js";
+import { UserAuthentication } from "../middlewares/authenticate.js";
 
 const userRouter = Router();
 

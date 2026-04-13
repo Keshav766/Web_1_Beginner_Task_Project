@@ -52,7 +52,7 @@ export async function handleUserLogin(req, res) {
 
         const { password: _, ...safeUser } = foundUser.toObject();
         const token = jwt.sign(
-            { userId: foundUser._id },
+            { userId: foundUser._id, role: foundUser.role },
             process.env.JWT_Secret,
             { expiresIn: "1d" }
         );
