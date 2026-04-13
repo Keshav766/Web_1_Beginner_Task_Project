@@ -21,8 +21,8 @@ const db = mongoose.connect(DB_URL)
     .catch((e) => console.log("MongoDB Error encountered"));
 
 app.use("/user", userRouter);
-
 app.use("/admin", adminRouter);
+app.use("/uploads", express.static("uploads"));
 
 app.listen(PORT, () => {
     console.log("Server started on PORT:", PORT)

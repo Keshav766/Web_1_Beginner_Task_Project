@@ -11,8 +11,14 @@ export async function handleUserRegister(req, res) {
                 message: "All fields are required",
             })
         }
+        const imagePath = req.file ? req.file.path : null;
         const hashedPass = await bcrypt.hash(password, 10);
-        const createdUser = await User.create({ name, email, password: hashedPass });
+        const createdUser = await User.create({
+            name,
+            email,
+            password: hashedPass,
+            profileImage: imagePath
+        });
         const { password: _, ...safeUser } = createdUser.toObject();
         return res.status(201).json({
             status: "success",

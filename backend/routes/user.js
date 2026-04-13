@@ -7,11 +7,12 @@ import {
     handleUserDelete
 } from "../controllers/user.js"
 import { UserAuthentication } from "../middlewares/authenticate.js";
+import { upload } from "../middlewares/upload.js";
 
 const userRouter = Router();
 
 userRouter
-    .post("/register", handleUserRegister)
+    .post("/register", upload.single("profileImage"), handleUserRegister)
     .post("/login", handleUserLogin)
     .get("/profile", UserAuthentication, handleUserProfileDisplay)
     .patch("/update", UserAuthentication, handleUserUpdate)
