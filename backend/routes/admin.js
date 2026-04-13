@@ -1,12 +1,19 @@
 import { Router } from "express";
 import { UserAuthentication } from "../middlewares/authenticate.js";
 import { AdminOnly } from "../middlewares/authorize.js";
+import {
+    handleAllUserDisplay,
+    handleUserCreation,
+    handleUserUpdate,
+    handleUserDeletion
+} from "../controllers/admin.js";
 
 const adminRouter = Router();
 
 adminRouter
-    .get("/", UserAuthentication, AdminOnly, (req, res) => {
-        return res.send("this is the Admin API that we will soon implement");
-    })
+    .get("/user", UserAuthentication, AdminOnly, handleAllUserDisplay)
+    .post("/user", UserAuthentication, AdminOnly, handleUserCreation)
+    .patch("/user/:id", UserAuthentication, AdminOnly, handleUserUpdate)
+    .delete("/user/:id", UserAuthentication, AdminOnly, handleUserDeletion);
 
 export default adminRouter;
