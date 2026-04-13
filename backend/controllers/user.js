@@ -1,5 +1,6 @@
 import User from "../models/user.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export async function handleUserRegister(req, res) {
     try {
@@ -50,9 +51,15 @@ export async function handleUserLogin(req, res) {
         }
 
         const { password: _, ...safeUser } = foundUser.toObject();
+        const token = jwt.sign(
+            { userId: foundUser._id },
+            process.env.JWT_Secret,
+            { expiresIn: "1d" }
+        );
 
         return res.status(200).json({
             status: "success",
+            token,
             data: safeUser,
         });
 
