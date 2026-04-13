@@ -1,10 +1,20 @@
 import { Router } from "express";
-import { handleUserRegister, handleUserLogin } from "../controllers/user.js"
+import {
+    handleUserRegister,
+    handleUserLogin,
+    handleUserProfileDisplay,
+    handleUserUpdate,
+    handleUserDelete
+} from "../controllers/user.js"
+import { UserAuthentication } from "../middlewares/auth.js";
 
 const userRouter = Router();
 
 userRouter
     .post("/register", handleUserRegister)
-    .post("/login", handleUserLogin);
+    .post("/login", handleUserLogin)
+    .get("/profile", UserAuthentication, handleUserProfileDisplay)
+    .patch("/update", UserAuthentication, handleUserUpdate)
+    .delete("/delete", UserAuthentication, handleUserDelete);
 
 export default userRouter;

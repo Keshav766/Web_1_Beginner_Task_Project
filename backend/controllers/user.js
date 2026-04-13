@@ -70,3 +70,72 @@ export async function handleUserLogin(req, res) {
         });
     }
 }
+
+export async function handleUserProfileDisplay(req, res) {
+    try {
+        const foundUser = await User.findById(req.user.userId);
+        if (!foundUser) {
+            return res.status(404).json({
+                status: "fail",
+                message: "user data not found",
+            })
+        }
+        const { password: _, ...safeUser } = foundUser.toObject();
+        return res.status(200).json({
+            status: "success",
+            data: safeUser,
+        })
+    } catch (e) {
+        return res.status(500).json({
+            status: "fail",
+            message: "Internal Server Error",
+        })
+    }
+}
+
+export async function handleUserUpdate(req, res) {
+    try {
+        const updatedUser = await User.findByIdAndUpdate(
+            req.user.userId,
+            req.body,
+            { new: true });
+
+        if (!updatedUser) {
+            return res.status(404).json({
+                status: "fail",
+                message: "User not found"
+            })
+        }
+        const { password: _, ...safeUser } = updatedUser.toObject();
+        return res.status(200).json({
+            staus: "success",
+            data: safeUser,
+        })
+    } catch (err) {
+        return res.status(500).json({
+            status: "fail",
+            message: "Internal Server Error",
+        })
+    }
+}
+
+export async function handleUserDelete(req, res) {
+    try {
+        const deletedUser = await User.findByIdAndDelete(req.user.userId);
+        if (deletedUser) {
+            return res.status(404).json({
+                status: "fail",
+                message: "User not found"
+            });
+        }
+        return res.status(200).json({
+            status: "success",
+            message: "User deleted successfully",
+        })
+    } catch (err) {
+        return res.status(500).json({
+            status: "fail",
+            message: "Internal Server Error",
+        })
+    }
+}
