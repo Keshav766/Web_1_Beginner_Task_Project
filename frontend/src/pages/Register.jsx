@@ -1,10 +1,12 @@
 import { useState } from "react";
 import API from "../services/api.js";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
     const handleRegister = async (e) => {
         e.preventDefault();
@@ -14,6 +16,7 @@ function Register() {
                 name, email, password,
             });
             console.log("Register Success:", res.data);
+            navigate("/login")
         } catch (err) {
             console.log("Register Error:", err.response?.data || err.message);
         }
