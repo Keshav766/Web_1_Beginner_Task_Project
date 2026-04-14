@@ -12,15 +12,10 @@ function Profile() {
     useEffect(() => {
         async function fetchProfile() {
             try {
-                const token = localStorage.getItem("token");
-                const res = await API.get("/user/profile", {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
+                const res = await API.get("/user/profile");
                 setUser(res.data.data);
             } catch (err) {
-                console.log("Error:", err.response?.data || err.message);
+                console.log(err.message);
             }
         }
         fetchProfile();
@@ -29,36 +24,26 @@ function Profile() {
     async function UserUpdation(e) {
         e.preventDefault();
         try {
-            const token = localStorage.getItem("token");
             const res = await API.patch("/user/update", {
                 name, email, password
-            }, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
             })
             setUser(res.data.data);
             setName("");
             setEmail("");
             setPassword("");
         } catch (err) {
-            console.log("Error:", err.response?.data || err.message);
+            console.log(err.message);
         }
     }
 
-    async function UserDeletion(e) {
-        e.preventDefault();
+    async function UserDeletion() {
         try {
-            const token = localStorage.getItem("token");
-            const res = await API.delete("/user/delete", {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
+            await API.delete("/user/delete")
+        } catch (err) {
+            console.log(err.message);
+        } finally {
             localStorage.removeItem("token");
             navigate("/");
-        } catch (err) {
-            console.log("Error:", err.response?.data || err.message);
         }
     }
 
