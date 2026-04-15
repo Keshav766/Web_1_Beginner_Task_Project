@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import API from "../services/api";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
 function Profile() {
-    const [user, setUser] = useState(null);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
+    const { user, setUser } = useAuth();
 
     useEffect(() => {
         async function fetchProfile() {
@@ -43,6 +44,7 @@ function Profile() {
             console.log(err.message);
         } finally {
             localStorage.removeItem("token");
+            setUser(null);
             navigate("/");
         }
     }
