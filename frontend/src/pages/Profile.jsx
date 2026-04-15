@@ -49,6 +49,10 @@ function Profile() {
         }
     }
 
+    function DisplayAdmin() {
+        navigate("/admin");
+    }
+
     return (
         <div>
             <h1>Profile Page</h1>
@@ -90,6 +94,12 @@ function Profile() {
                 </form>
             </div>
             <button onClick={UserDeletion}>Delete</button>
+
+            {
+                user && user.role === "admin" && <button onClick={DisplayAdmin}>Admin Pannel</button>
+            }
+
+
         </div>
     );
 }

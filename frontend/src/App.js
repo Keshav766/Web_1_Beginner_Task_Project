@@ -3,6 +3,7 @@ import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
 import Profile from "./pages/Profile.jsx";
 import Home from "./pages/Home.jsx";
+import { Admin } from "./pages/Admin.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+        <Route path="/admin" element={<Admin />} />
         <Route path="/" element={<Home />} />
       </Routes>
     </BrowserRouter>
