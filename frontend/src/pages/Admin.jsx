@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import API from "../services/api";
+import "./Admin.css";
 
 export function Admin() {
     const [users, setUsers] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalOpen2, setIsModalOpen2] = useState(false);
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [role, setRole] = useState("");
 
     useEffect(() => {
         async function fetchAllUsers() {
@@ -51,15 +55,89 @@ export function Admin() {
             );
 
             setIsModalOpen(false);
-            selectedUser(null);
+            setSelectedUser(null);
 
         } catch (err) {
             console.log(err.message);
         }
     }
 
+    const handleUserCreation = () => {
+        setName("");
+        setEmail("");
+        setPassword("");
+        setRole("");
+        setIsModalOpen2(true);
+    }
+
+    const handleCreate = async (e) => {
+        e.preventDefault();
+
+        try {
+            const res = await API.post("/admin/user", {
+                name, email, password, role
+            })
+            const user = res.data.data;
+
+            setUsers(prev => [...prev, user]);
+
+            setIsModalOpen2(false);
+
+        } catch (err) {
+            console.log(err.message);
+        }
+
+    }
+
     return (
         <div>
+            {isModalOpen2 && (
+                <div className="modal-overlay">
+                    <div className="modal" >
+                        <h2>Create User</h2>
+                        <form onSubmit={handleCreate}>
+                            <div>
+                                <label>Name</label>
+                                <input
+                                    type="text"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                />
+                            </div>
+                            <div>
+                                <label>Email</label>
+                                <input
+                                    type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                            </div>
+                            <div>
+                                <label>Password</label>
+                                <input
+                                    type="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                />
+                            </div>
+                            <div>
+                                <label>Role</label>
+                                <select value={role} onChange={(e) => setRole(e.target.value)}>
+                                    <option value="">Select Role</option>
+                                    <option value="user">User</option>
+                                    <option value="admin">Admin</option>
+                                </select>
+                            </div>
+
+                            <button type="submit">Save</button>
+                            <button type="button" onClick={() => setIsModalOpen2(false)}>
+                                Cancel
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            )}
+            <button onClick={handleUserCreation}>Create New User</button>
             {
                 users.map(item =>
                 (<div key={item._id}><h3>
@@ -71,35 +149,27 @@ export function Admin() {
                 )
             }
             {isModalOpen && (
-                <div style={{
-                    position: "fixed",
-                    top: 0,
-                    left: 0,
-                    width: "100%",
-                    height: "100%",
-                    background: "rgba(0,0,0,0.5)",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center"
-                }}>
-                    <div style={{
-                        background: "white",
-                        padding: "20px",
-                        borderRadius: "8px"
-                    }}>
-                        <h2>Edit User</h2>
+                <div className="modal-overlay" >
+                    <div className="modal" >
+                        < h2 > Edit User</h2>
 
                         <form onSubmit={handleUpdate}>
-                            <input
-                                type="text"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                            />
-                            <input
-                                type="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                            />
+                            <div>
+                                <label>Name</label>
+                                <input
+                                    type="text"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                />
+                            </div>
+                            <div>
+                                <label>Email</label>
+                                <input
+                                    type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                            </div>
 
                             <button type="submit">Save</button>
                             <button type="button" onClick={() => setIsModalOpen(false)}>
@@ -107,8 +177,9 @@ export function Admin() {
                             </button>
                         </form>
                     </div>
-                </div>
-            )}
+                </div >
+            )
+            }
 
         </div >
     );
