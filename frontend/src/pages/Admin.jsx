@@ -13,6 +13,17 @@ export function Admin() {
         fetchAllUsers();
     }, [])
 
+    const handleUserDeletion = async (id) => {
+        try {
+            await API.delete(`/admin/user/${id}`);
+
+            setUsers(preuser => preuser.filter(user => user._id !== id));
+        } catch (err) {
+            console.log(err.message);
+        }
+
+    }
+
     return (
         <div>
             {
@@ -20,6 +31,7 @@ export function Admin() {
                 (<div key={item._id}><h3>
                     Name: {item.name}
                     Email: {item.email}
+                    <button onClick={() => { handleUserDeletion(item._id) }}>Delete</button>
                 </h3></div>)
                 )
             }
