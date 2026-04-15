@@ -5,6 +5,7 @@ import Profile from "./pages/Profile.jsx";
 import Home from "./pages/Home.jsx";
 import { Admin } from "./pages/Admin.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import { AdminRoute } from "./components/AdminRoute.jsx";
 
 function App() {
   return (
@@ -12,8 +13,16 @@ function App() {
       <Routes>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-        <Route path="/admin" element={<Admin />} />
+        <Route path="/profile" element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>} />
+        <Route path="/admin" element={
+          <ProtectedRoute>
+            <AdminRoute>
+              <Admin />
+            </AdminRoute>
+          </ProtectedRoute>} />
         <Route path="/" element={<Home />} />
       </Routes>
     </BrowserRouter>
