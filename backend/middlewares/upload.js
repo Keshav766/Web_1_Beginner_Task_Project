@@ -8,16 +8,22 @@ const storage = multer.diskStorage({
         const uniqueName = Date.now() + "-" + file.originalname;
         cb(null, uniqueName);
     },
-    fileFilter: (req, file, cb) => {
-        if (file.mimetype.startWith("image/")) {
-            cb(null, true);
-        } else {
-            cb(new Error("Only images allowed"), false);
-        }
-    },
+
+
+});
+
+const fileFilter = (req, file, cb) => {
+    if (file.mimetype.startsWith("image/")) {
+        cb(null, true);
+    } else {
+        cb(new Error("Only images allowed"), false);
+    }
+};
+
+export const upload = multer({
+    storage,
+    fileFilter,
     limits: {
         fileSize: 1024 * 1024 * 10
     }
 });
-
-export const upload = multer({ storage });

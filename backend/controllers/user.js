@@ -11,6 +11,13 @@ export async function handleUserRegister(req, res) {
                 message: "All fields are required",
             })
         }
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({
+                status: "fail",
+                message: "Email already exists"
+            });
+        }
         const imagePath = req.file ? req.file.path : null;
         const hashedPass = await bcrypt.hash(password, 10);
         const createdUser = await User.create({
@@ -128,7 +135,7 @@ export async function handleUserUpdate(req, res) {
 export async function handleUserDelete(req, res) {
     try {
         const deletedUser = await User.findByIdAndDelete(req.user.userId);
-        if (deletedUser) {
+        if (!deletedUser) {
             return res.status(404).json({
                 status: "fail",
                 message: "User not found"
