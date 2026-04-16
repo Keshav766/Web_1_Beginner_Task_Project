@@ -6,10 +6,12 @@ import Home from "./pages/Home.jsx";
 import { Admin } from "./pages/Admin.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import { AdminRoute } from "./components/AdminRoute.jsx";
+import Navbar from "./components/Navbar.jsx";
 
 function App() {
   return (
     <BrowserRouter>
+      <Navbar />
       <Routes>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
