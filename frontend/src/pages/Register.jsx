@@ -6,15 +6,22 @@ function Register() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [file, setFile] = useState(null);
+    const [preview, setPreview] = useState(null);
     const navigate = useNavigate();
+    const formData = new FormData();
 
     const handleRegister = async (e) => {
         e.preventDefault();
 
         try {
-            const res = await API.post("/user/register", {
-                name, email, password,
-            });
+
+            formData.append("name", name);
+            formData.append("email", email);
+            formData.append("password", password);
+            formData.append("profileImage", file);
+
+            const res = await API.post("/user/register", formData);
             console.log("Register Success:", res.data);
             navigate("/login")
         } catch (err) {
@@ -42,6 +49,15 @@ function Register() {
                     placeholder="Password"
                     onChange={(e) => setPassword(e.target.value)}
                 />
+                <input
+                    type="file"
+                    onChange={(e) => {
+                        const selectedFile = e.target.files[0];
+                        setFile(selectedFile);
+                        setPreview(URL.createObjectURL(selectedFile));
+                    }}
+                    />
+                    {preview && <img src={preview} alt="preview" width="100" />}
 
                 <button type="submit">Register</button>
             </form>
