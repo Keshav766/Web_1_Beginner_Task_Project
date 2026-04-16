@@ -15,7 +15,7 @@
 
 /* Modal box */
 .modal {
-    background: white;
+    background: rgb(231, 227, 227);
     padding: 30px;
     border-radius: 8px;
 }

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import API from "../services/api";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import "./Profile.css";
 
 function Profile() {
     const [name, setName] = useState("");
@@ -54,52 +55,61 @@ function Profile() {
     }
 
     return (
-        <div>
-            <h1>Profile Page</h1>
-            {
-                user ? (
-                    <>
-                        <p>Name: {user.name}</p>
-                        <p>Email: {user.email}</p>
-                        <pre>{JSON.stringify(user, null, 2)}</pre>
-                    </>
-                ) : (
-                    <p>Loading ...</p>
-                )
-            }
-            <div>
-                <h2>Update User</h2>
+        <div className="profile-page">
+            <div className="profile-container">
+                <h1>Profile Page</h1>
+                {
+                    user ? (
+                        <>
+                            <div className="profile-card">
+                                <img src={"http://localhost:9999/" + user.profileImage}
+                                    alt="Profile Image"
+                                    width="100"
+                                />
+                                <div>
+                                    <p>Name: {user.name}</p>
+                                    <p>Email: {user.email}</p>
+                                    <p>Role: {user.role}</p>
+                                    {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
+                                </div>
+                            </div>
+                            <div className="update-section">
+                                <h2>Update User</h2>
+                                <form onSubmit={UserUpdation}>
+                                    <input
+                                        type="text"
+                                        value={name}
+                                        placeholder="Name"
+                                        onChange={(e) => setName(e.target.value)}
+                                    />
+                                    <input
+                                        type="email"
+                                        value={email}
+                                        placeholder="Email"
+                                        onChange={(e) => setEmail(e.target.value)}
+                                    />
+                                    <input
+                                        type="password"
+                                        value={password}
+                                        placeholder="Password"
+                                        onChange={(e) => setPassword(e.target.value)}
+                                    />
 
-                <form onSubmit={UserUpdation}>
-                    <input
-                        type="text"
-                        value={name}
-                        placeholder="Name"
-                        onChange={(e) => setName(e.target.value)}
-                    />
-                    <input
-                        type="email"
-                        value={email}
-                        placeholder="Email"
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <input
-                        type="password"
-                        value={password}
-                        placeholder="Password"
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-
-                    <button type="submit">Update</button>
-                </form>
+                                    <button type="submit">Update</button>
+                                </form>
+                            </div>
+                            <div className="actions">
+                                <button onClick={UserDeletion}>Delete User</button>
+                                {
+                                    user && user.role === "admin" && <button onClick={DisplayAdmin}>Admin Pannel</button>
+                                }
+                            </div>
+                        </>
+                    ) : (
+                        <p>Loading ...</p>
+                    )
+                }
             </div>
-            <button onClick={UserDeletion}>Delete</button>
-
-            {
-                user && user.role === "admin" && <button onClick={DisplayAdmin}>Admin Pannel</button>
-            }
-
-
         </div>
     );
 }

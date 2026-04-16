@@ -1,0 +1,79 @@
+/* for full page */
+
+.profile-page {
+    min-height: 100vh;
+    background-color: #767373;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-container {
+    width: 100%;
+    max-width: 600px;
+    padding: 30px;
+    background-color: rgb(150, 181, 181);
+    border-radius: 40px;
+    font-family: Arial, sans-serif;
+    border: 5px solid rgb(120, 176, 176);
+}
+
+.profile-card {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    background-color: rgb(222, 172, 172);
+    border: 1px solid red;
+}
+
+.profile-container img {
+    width: 100px;
+    border-radius: 50px;
+    object-fit: cover;
+}
+
+.update-section {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* border: 2px solid orange; */
+}
+
+.update-section form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 300px;
+}
+
+.profile-container input {
+    padding: 8px;
+    width: 100%;
+    border: 1px solid #ccc;
+}
+
+.profile-container button {
+    padding: 8px 12px;
+    border: none;
+    background-color: #e7dada;
+    border-radius: 5px;
+    cursor: pointer;
+    width: fit-content;
+    align-self: center;
+}
+
+.profile-container button:hover {
+    background-color: #555;
+}
+
+.profile-container .actions {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
