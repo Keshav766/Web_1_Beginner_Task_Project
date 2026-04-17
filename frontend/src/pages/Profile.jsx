@@ -98,7 +98,7 @@ function Profile() {
                                     <button type="submit">Update</button>
                                 </form>
                             </div>
-                            <div className="actions">
+                            <div className="actions1">
                                 <button onClick={UserDeletion}>Delete User</button>
                                 {
                                     user && user.role === "admin" && <button onClick={DisplayAdmin}>Admin Pannel</button>

@@ -90,7 +90,73 @@ export function Admin() {
     }
 
     return (
-        <div>
+        <div className="admin-page">
+            <div className="admin-header">
+                <button onClick={handleUserCreation}>
+                    Create New User
+                </button>
+            </div>
+            <div className="user-table">
+                <div className="table-header">
+                    <span>Image</span>
+                    <span>Name</span>
+                    <span>Email</span>
+                    <span>Role</span>
+                    <span>Actions</span>
+                </div>
+                {
+                    users.map(item => (
+                        <div className="table-row" key={item._id}>
+                            <img
+                                src={"http://localhost:9999/" + item.profileImage}
+                                alt="User"
+                            />
+                            <span>{item.name}</span>
+                            <span>{item.email}</span>
+                            <span>{item.role}</span>
+
+                            <div className="actions">
+                                <button onClick={() => { handleUserDeletion(item._id) }}>Delete</button>
+                                <button onClick={() => { handleUserUpdation(item) }}>Edit</button>
+                            </div>
+                        </div>
+                    )
+                    )
+                }
+            </div>
+            {isModalOpen && (
+                <div className="modal-overlay" >
+                    <div className="modal" >
+                        < h2 > Edit User</h2>
+
+                        <form onSubmit={handleUpdate}>
+                            <div>
+                                <label>Name</label>
+                                <input
+                                    type="text"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                />
+                            </div>
+                            <div>
+                                <label>Email</label>
+                                <input
+                                    type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                            </div>
+
+                            <button type="submit">Save</button>
+                            <button type="button" onClick={() => setIsModalOpen(false)}>
+                                Cancel
+                            </button>
+                        </form>
+                    </div>
+                </div >
+            )
+            }
+
             {isModalOpen2 && (
                 <div className="modal-overlay">
                     <div className="modal" >
@@ -137,50 +203,6 @@ export function Admin() {
                     </div>
                 </div>
             )}
-            <button onClick={handleUserCreation}>Create New User</button>
-            {
-                users.map(item =>
-                (<div key={item._id}><h3>
-                    Name: {item.name}
-                    Email: {item.email}
-                    <button onClick={() => { handleUserDeletion(item._id) }}>Delete</button>
-                    <button onClick={() => { handleUserUpdation(item) }}>Edit</button>
-                </h3></div>)
-                )
-            }
-            {isModalOpen && (
-                <div className="modal-overlay" >
-                    <div className="modal" >
-                        < h2 > Edit User</h2>
-
-                        <form onSubmit={handleUpdate}>
-                            <div>
-                                <label>Name</label>
-                                <input
-                                    type="text"
-                                    value={name}
-                                    onChange={(e) => setName(e.target.value)}
-                                />
-                            </div>
-                            <div>
-                                <label>Email</label>
-                                <input
-                                    type="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
-                            </div>
-
-                            <button type="submit">Save</button>
-                            <button type="button" onClick={() => setIsModalOpen(false)}>
-                                Cancel
-                            </button>
-                        </form>
-                    </div>
-                </div >
-            )
-            }
-
         </div >
     );
 }

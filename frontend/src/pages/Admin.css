@@ -1,3 +1,76 @@
+.admin-page {
+    min-height: 100vh;
+    background: #e7eef5;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 40px;
+}
+
+.admin-header {
+    margin-bottom: 20px;
+}
+
+.admin-header button {
+    padding: 10px 20px;
+    background: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.user-table {
+    width: 80%;
+    max-width: 900px;
+}
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    padding: 10px;
+    border-bottom: 2px solid black;
+}
+
+.table-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.table-row img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.actions {
+    display: flex;
+    gap: 3px;
+}
+
+.actions button {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.actions button:first-child {
+    background: #4caf50;
+    color: white;
+}
+
+.actions button:last-child {
+    background: #f44336;
+    color: white;
+}
+
 /* Overlay */
 .modal-overlay {
     position: fixed;

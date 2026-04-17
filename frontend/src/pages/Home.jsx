@@ -1,11 +1,13 @@
-import { useNavigate } from "react-router-dom";
+import "./Home.css";
 
 function Home() {
-    const navigate = useNavigate();
     return (
         <>
-            <button onClick={() => navigate("/login")}>Login</button>
-            <button onClick={() => navigate("/register")}>Register</button >
+            <div className="home-page">
+                <div className="home-overlay">
+                    <h1>Beginner</h1>
+                </div>
+            </div>
         </>
     );
 }

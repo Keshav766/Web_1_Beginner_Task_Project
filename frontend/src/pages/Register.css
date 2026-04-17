@@ -1,0 +1,53 @@
+.full-page {
+    min-height: 100vh;
+    background-color: rgb(211, 231, 248);
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.register-page {
+    display: flex;
+    margin-top: 100px;
+}
+
+.register-card {
+    border: 2px solid rgb(235, 214, 126);
+    background: rgb(246, 238, 207);
+    padding: 30px;
+    border-radius: 10px;
+    width: 350px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.register-card form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.register-card input {
+    max-width: 250px;
+    width: 100%;
+    align-self: center;
+}
+
+.register-card button {
+    padding: 10px;
+    border: none;
+    background-color: #333;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+
+    align-self: center;
+}
+
+.register-card img {
+    align-self: center;
+}

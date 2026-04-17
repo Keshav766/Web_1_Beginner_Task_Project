@@ -1,0 +1,17 @@
+.home-page {
+    min-height: 100vh;
+
+    background-image: url(../assets/home-simple.gif);
+    background-size: cover;
+    background-position: center;
+}
+
+.home-overlay {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(0, 0, 0, 0.4);
+    color: white;
+}
